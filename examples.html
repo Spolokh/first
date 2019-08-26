@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--link rel="icon" href="/favicon.ico"-->
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <style type="text/css">
+      body {
+        padding: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+   
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+  <section id="Container">
+
+  <!-- Static navbar -->
+    <div class="navbar"></div>
+
+    <header>
+      <nav>
+      </nav>
+    </header>
+     
+    <form action="/api/stat/AddCounter" id="appendedNumber" class="form-inline"> 
+      <div class="input-append">
+        <input name="Counter" id="appendedInput" type="number">
+        <input class="btn" type="submit" value="Add Counter" />
+      </div>
+
+      <div id="result"></div>
+    </form>
+
+    <footer>
+    </footer>
+  </section>
+
+  <div id="showOverlay"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+  <script src="js/jquery.maskedinput.min.js"></script>
+  
+  <script>
+    jQuery(function($) {
+      $('#appendedNumber').submit( function(e) {
+         
+        e.preventDefault();
+        var ajax  = getXmlHttp();
+        var form  = new FormData(this);
+        var Url   = this.getAttribute('action');
+
+        form.append('Url', Url);
+
+        ajax.onreadystatechange = function() {
+
+          if ( ajax.readyState != 4 ) {
+            return;
+          }	
+
+          if ( ajax.status == 200 ) {
+            $('#result').html(ajax.responseText);
+          }
+
+          if ( ajax.status == 500 ) {
+            alert(ajax.responseText);
+          }
+        };
+
+        ajax.open ('POST', 'request.php'); 
+        ajax.setRequestHeader ('Cache-Control', 'no-cache');
+        ajax.setRequestHeader ("X-Requested-With", "XMLHttpRequest");
+        ajax.send(form); this.reset();
+
+      });
+    });
+
+  function getXmlHttp(){
+    var xmlhttp;
+    try {
+      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+      try {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (e) {
+        xmlhttp = false;
+      }
+    }
+    if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+      xmlhttp = new XMLHttpRequest();
+    }   return xmlhttp;
+  }
+  </script>
+ 
+</body>
+</html>    
