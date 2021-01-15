@@ -2,7 +2,7 @@ jQuery(function($)
 {
 	$('#registration').submit(function(e)
 	{
-		var	data = new FormData(this);
+		var data = new FormData(this);
 		var ajax = getXmlHttp();
 
 		ajax.onreadystatechange = function()
@@ -27,7 +27,7 @@ jQuery(function($)
 
 	$('#addPhone').submit(function(e)
 	{
-		var	data = new FormData(this);
+		var data = new FormData(this);
 		var ajax = getXmlHttp();
 		var form = $(this);
 		var click = form.find('button[type="submit"]');
