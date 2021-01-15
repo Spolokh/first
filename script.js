@@ -61,8 +61,7 @@ jQuery(function($)
 	$('#editPhone').submit (function(e)
 	{
 		var ajax = getXmlHttp();
-		//var form = $(this);
-		var	form = new FormData(this);
+		var form = new FormData(this);
 		var task = $('input.checkdelTask:checked');
 
 		if ( !task || typeof task === "undefined" ) {
